@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Answers</title>
+  <style>
+    .question {
+      border-bottom: 2px solid #000;
+    }
+  </style>
+</head>
+<body>
+<h1>Відповіді на тести Антикорупційна програма</h1>
+{% for question, item in answers.items() %}
+<div class="question {{ item.type }}" {% if not item.solved %}style="color: red;"{% endif %}>
+  <h2>{{ loop.index }}. {{ question }}</h2>
+  {% for option in item.options %}
+  <p {% if option.correct %}style="font-weight: bold;"{% endif %}>
+    {% if item.type != "select" %}
+    <input type={% if item.type == "checkbox" %}"checkbox"{% else %}"radio"{% endif %} disabled="disabled" {% if option.correct %}checked="checked"{% endif %}>
+    {% endif %}
+    {{ option.text }} {% if item.type == "select" %} <span style="font-weight: bold;font-style: italic;"> {{ option.correct }}</span>{% endif %}
+  </p>
+  {% endfor %}
+</div>
+{% endfor %}
+</body>
+</html>
